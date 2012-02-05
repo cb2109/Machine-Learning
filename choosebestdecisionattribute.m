@@ -3,14 +3,6 @@
 %	example.choices = array of the attribute values taken
 %   example.result = a result 
 
-function [result] = tester()
-	attributes = { 'one' 'two' 'three'};
-	examples = { [0 1 1] [1 0 1] [1 1 1] [0 1 0]};
-	targets = {1 0 1 1};
-	result = choosebestdecisionattribute(attributes, examples, targets);
-
-return
-
 function [best] = choosebestdecisionattribute(attributes, examples, targets)
 	% attrubutes are the features/attributes. The names of the attributes
 	% examples is a N x size(attributes) matrix of the examples, where N is the number of examples
@@ -24,7 +16,7 @@ function [best] = choosebestdecisionattribute(attributes, examples, targets)
 	%pick an atrribute, work out the gain
 	for i = 1 : length(attributes)
 	
-		curAttribute = attributes(i)
+		curAttribute = attributes(i);
 		values = struct('value', {}, 'result', {});
 		
 		for j = 1 : length(examples)
@@ -35,7 +27,7 @@ function [best] = choosebestdecisionattribute(attributes, examples, targets)
 			values(j) = curValue;
 		end
 		
-		val = gain(values)
+		val = gain(values);
 		
 		if val >= bestValue
 			best = curAttribute;
@@ -158,4 +150,13 @@ function [no] = countRes(arrayExamples, valToCompare)
 			
 		end
 	end
-return;
+return
+
+
+function [result] = tester()
+	attributes = { 'one' 'two' 'three'};
+	examples = { [0 1 1] [1 0 1] [1 1 1] [0 1 0]};
+	targets = {1 0 1 1};
+	result = choosebestdecisionattribute(attributes, examples, targets);
+
+return
