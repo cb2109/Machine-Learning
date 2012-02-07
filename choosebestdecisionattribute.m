@@ -12,7 +12,7 @@ function [best] = choosebestdecisionattribute(attributes, examples, targets)
 	
 	% sets bestValue as 0, which is the lowest possible gain
 	bestValue = 0;
-	
+	best = attributes(1);
 	%pick an atrribute, work out the gain
 	for i = 1 : length(attributes)
 	
@@ -33,9 +33,8 @@ function [best] = choosebestdecisionattribute(attributes, examples, targets)
 			best = curAttribute;
 			bestValue = val;
 		end
-	end
-		
-return	
+    end
+end	
 
 function [gain] = gain (attributeSet)
 	% performs the caluation for gain given in the notes
@@ -46,7 +45,7 @@ function [gain] = gain (attributeSet)
 	% gain = id3(positive, negaive) - Remainder(attributeSet)
 	gain = iDThree(noPos, noNeg) - remainder(attributeSet);
 	
-return;
+end
 	
 function [idtVal] = iDThree (noPositive, noNegative)
 	% performs the ID3 calculation given in the spec
@@ -62,7 +61,7 @@ function [idtVal] = iDThree (noPositive, noNegative)
 		rightVal = -1 * n * (log(n)/log(2));
 	end
 	idtVal =  leftVal + rightVal;
-return
+end
 
 function [remainder] = remainder(attributeSet)
 	% attribute subset: an array of attributes combined with results
@@ -83,7 +82,6 @@ function [remainder] = remainder(attributeSet)
 	% all the attributes with the same value and performing
 	% the calculation in the notes on them
 	while ~isempty(values)
-	
 		% initialize the current value with the first element of values
 		curValue = struct(values(1));
 		% removes element 1 from the list
@@ -120,22 +118,22 @@ function [remainder] = remainder(attributeSet)
 		
 		% performs sumation
 		sum = sum + val;
-	end
+    end
 	
 	remainder = sum;
 
-return
+end
 
 
 function [noPos] = countPositive(arrayExamples)
 	%counts all positive examples
 	noPos = countRes(arrayExamples, 1);
-return
+end
 
 function [noNeg] = countNegative(arrayExamples)
 	%counts all negative examples
 	noNeg = countRes(arrayExamples, 0);
-return;
+end
 
 function [no] = countRes(arrayExamples, valToCompare)
 	% given a result value to compare to
@@ -144,13 +142,13 @@ function [no] = countRes(arrayExamples, valToCompare)
 	for i = 1 : length(arrayExamples)
 		example = arrayExamples(i);
 		result = example.result(1);
-		if result{1} == valToCompare
+		if result == valToCompare
 			
 			no = no + 1;
 			
 		end
 	end
-return
+end
 
 
 function [result] = tester()
@@ -158,5 +156,4 @@ function [result] = tester()
 	examples = { [0 1 1] [1 0 1] [1 1 1] [0 1 0]};
 	targets = {1 0 1 1};
 	result = choosebestdecisionattribute(attributes, examples, targets);
-
-return
+end

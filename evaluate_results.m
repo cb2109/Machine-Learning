@@ -7,12 +7,14 @@ function [ x,y ] = evaluate_results( results,targets )
 %OUT: x: 6 x 6 confusion matrix
 %     y: precision/recall table
 
-x = confusion_matrix(results,targets);
+[x,u] = confusion_matrix(results,targets);
 y = precision_recall(x);
 disp(' ')
 disp('                  Confusion Matrix')
 display_confusion_matrix(x)
 disp(' ')
+disp('Unknown: ')
+disp(u)
 disp('                  Precision/Recall Table')
 display_precision_recall(y)
 end
