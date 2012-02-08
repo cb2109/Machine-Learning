@@ -1,16 +1,16 @@
 function [ results ]  = main ()	
 
 	% loads in the examples from cleandata_students.txt
-	
 	[examples, targets]  = loaddata('cleandata_students.txt');
-    % Do 10 fold cross evaluation...
     results = zeros(size(targets));
+    
+    % Do 10 fold cross evaluation...
     num_per_fold = floor(size(examples,1) / 10);
     train_set_size = size(examples,1) - num_per_fold;
     test_set = zeros(num_per_fold,size(examples,2));
     train_set = zeros(train_set_size,size(examples,2));
-    train_targets = zeros(size(targets));
-    test_targets = zeros(size(targets));
+    train_targets = zeros(train_set_size);
+    test_targets = zeros(num_per_fold);
     current_num = 1;
     for i = 1:10
         end_fold = current_num + num_per_fold;
