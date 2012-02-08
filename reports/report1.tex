@@ -1,5 +1,5 @@
 \documentclass[a4paper]{article}
-\usepackage{fullpage, titling, amsmath, footnote, listings}
+\usepackage{fullpage, titling, amsmath, footnote, listings, graphicx}
 \makesavenoteenv{tabular}
 \setlength{\droptitle}{-50pt}
 
@@ -13,7 +13,37 @@
   \item The acquired decision trees, trained on the whole available dataset (6
     in total, for 6 different emotions)
 
-    % TODO: Put trees in here/an appendix
+  \begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{graph-anger}
+    \caption{Tree trained over full data set for the anger emotion}
+  \end{figure}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{graph-disgust}
+    \caption{Tree trained over full data set for the disgust emotion}
+  \end{figure}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{graph-fear}
+    \caption{Tree trained over full data set for the fear emotion}
+  \end{figure}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{graph-happyness}
+    \caption{Tree trained over full data set for the happyness emotion}
+  \end{figure}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{graph-sadness}
+    \caption{Tree trained over full data set for the sadness emotion}
+  \end{figure}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{graph-surprise}
+    \caption{Tree trained over full data set for the surprise emotion}
+  \end{figure}
+
 
   \item Each example needs to get only a single emotion assigned to it, between
     1 and 6. Explain how you made sure this is always the case in your decision
@@ -30,11 +60,11 @@
         previous step.
     \end{itemize}
     
-  \item Pruning is an important issue in trees. Run the \emph{prune\_example}
+  \item \emph{Pruning is an important issue in trees. Run the prune\_example
     function, which is provided, and briefly explain how it works. It uses the
     MATLAB built-in functions for trees. Two figures should be generated showing
     two different curves. Include those figures in your report and explain why
-    each curve has this shape. What is the difference between them?
+    each curve has this shape. What is the difference between them?}
 
     The prune\_example function takes a set of AUs and the labels for that data,
     and builds a decision tree using MATLAB's built in functionality to build a
