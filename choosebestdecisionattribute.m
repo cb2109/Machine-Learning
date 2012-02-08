@@ -20,10 +20,10 @@ function [best] = choosebestdecisionattribute(attributes, examples, targets)
 		values = struct('value', {}, 'result', {});
 
         for j = 1 : size(examples, 1)
-            curValue.value = examples(j, i);
-			curValue.result = targets(j);
-			values(j) = curValue;
-		end
+            curValue.value = examples(j, curAttribute);
+            curValue.result = targets(j);
+            values(j) = curValue;
+        end
 
 		val = gain(values);
 
