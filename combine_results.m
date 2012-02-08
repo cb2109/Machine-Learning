@@ -19,12 +19,12 @@ end
 end
 
 function [ label ] = pick_label( a,b,c,d,e,f )
-% Picks a random label from those that are set
-%label = 7;
+% Picks a random label from those that are set, or
+% guess a random expression if no tree recognizes it
 label = unidrnd(6);
 set = find([a b c d e f]);
 if size(set)
-pick = unidrnd(size(set,2));
-label = set(pick);
+    pick = unidrnd(size(set,2));
+    label = set(pick);
 end
 end

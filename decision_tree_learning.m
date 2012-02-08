@@ -8,6 +8,7 @@ function [ tree ] = decision_tree_learning ( examples,attributes,targets )
 %     attributes: list of possible attributes to test of (all values 1-45)
 %     targets: N x 1 list of target values for each example
 %OUT: tree: a decision tree
+
 if (same_label(targets))
     tree.op = {};
     tree.kids = {};
@@ -19,31 +20,23 @@ elseif (size(attributes) == 0)
     tree.class = majority_value(targets);
     return 
 end
-best = choosebestdecisionattribute(attributes, matrix2cell(examples), targets);
-%best = attributes(unidrnd(length(attributes)));
-attributes = remove(best,attributes);
-pos_examples = [];
-pos_targets = [];
-neg_examples = [];
-neg_targets = [];
-for i = 1:size(examples)
-    ex = examples(i,:);
-    if (examples(i,best))
-        pos_examples = vertcat(pos_examples,ex);
-        pos_targets = vertcat(pos_targets,targets(i));
-    else
-        neg_examples = vertcat(neg_examples,ex);
-        neg_targets = vertcat(neg_targets,targets(i));
-    end
-end
-if (size(pos_examples) == 0)
+
+best = choosebestdecisionattribute(attributes, examples, targets);
+zeroIndices = find(~examples(:,best));
+oneIndices  = find( examples(:,best));
+neg_examples = examples(zeroIndices,:);
+pos_examples = examples(oneIndices,:);
+neg_targets  = targets(zeroIndices);
+pos_targets  = targets(oneIndices);
+
+if (isempty(pos_examples))
     pos_subtree.op = {};
     pos_subtree.kids = [];
     pos_subtree.class = majority_value(pos_targets);
 else
     pos_subtree = decision_tree_learning(pos_examples,attributes,pos_targets);
 end
-if (size(neg_examples) == 0)
+if (isempty(neg_examples))
     neg_subtree.op = {};
     neg_subtree.kids = [];
     neg_subtree.class = majority_value(neg_targets);
@@ -69,37 +62,6 @@ end
 
 
 function [ majority ] = majority_value ( labels )
-% Checks for the most common value among a list of 0s and 1s
-ones = 0;
-zeros = 0;
-for k = 1:size(labels,2)
-    if (labels(k) == 0)
-        zeros = zeros + 1;
-    else
-        ones = ones + 1;
-    end
-end
-majority = 0;
-if (ones > zeros)
-    majority = 1;
-end
-end
-
-function [ removed ] = remove ( value,list )
-% Removes a value from a list
-removed = [];
-for i = 1:size(list,2)
-    if ~(list(i) == value)
-        removed = horzcat(removed,list(i)); 
-    end
-end
-end
-
-function [cells] = matrix2cell(matrix)
-	% returns a cell array containing each example from the matrix
-	cells = {1, size(matrix)};
-	for i = 1 : size(matrix)
-		cells{i} = matrix(i, :);
-	end
-	
+% Finds the majority value amongst a list of values
+majority = mode(double(labels));
 end

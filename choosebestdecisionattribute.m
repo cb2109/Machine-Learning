@@ -4,31 +4,29 @@
 %   example.result = a result 
 
 function [best] = choosebestdecisionattribute(attributes, examples, targets)
-	% attrubutes are the features/attributes. The names of the attributes
+	% attributes are the features/attributes. The names of the attributes
 	% examples is a N x size(attributes) matrix of the examples, where N is the number of examples
 	% target is an array showing the result of each example (whether it's a positive or negative)
 	%			based on a 0 for negative, 1 for positive basis.
 	%returns an attribute that is best to make the next split on.
-	
+
 	% sets bestValue as 0, which is the lowest possible gain
 	bestValue = 0;
 	best = attributes(1);
 	%pick an atrribute, work out the gain
 	for i = 1 : length(attributes)
-	
+
 		curAttribute = attributes(i);
 		values = struct('value', {}, 'result', {});
-		
-		for j = 1 : length(examples)
-			example = examples(j);
-			example = example{1};
-			curValue.value = example(1, i);
+
+        for j = 1 : size(examples, 1)
+            curValue.value = examples(j, i);
 			curValue.result = targets(j);
 			values(j) = curValue;
 		end
-		
+
 		val = gain(values);
-		
+
 		if val >= bestValue
 			best = curAttribute;
 			bestValue = val;
@@ -41,10 +39,10 @@ function [gain] = gain (attributeSet)
 	% attributeSet: is an array s.t. attributeSet[i].value = Real, attributeSet[i].result = {0, 1}
 	noPos = countPositive(attributeSet);
 	noNeg = countNegative(attributeSet);
-	
+
 	% gain = id3(positive, negaive) - Remainder(attributeSet)
 	gain = iDThree(noPos, noNeg) - remainder(attributeSet);
-	
+
 end
 	
 function [idtVal] = iDThree (noPositive, noNegative)
@@ -69,14 +67,14 @@ function [remainder] = remainder(attributeSet)
 	%       result  result  result
 	%
 	% where attr is an array of pairs: attr[0].value, attr[1].result
-		
+
 	values = attributeSet;
-		
+
 	overallPos = countPositive(attributeSet);
 	overallNeg = countNegative(attributeSet);
-		
+
 	sum = 0.0;
-		
+
 	% while there are still values to be handled
 	% this loop repeatedly goes through values collecting
 	% all the attributes with the same value and performing
@@ -87,11 +85,11 @@ function [remainder] = remainder(attributeSet)
 		% removes element 1 from the list
 		values(1) = [];
 		curValueSize = 2;
-		
+
 		% place for storing values that weren't visited
 		remainingValues = struct('value', {}, 'result', {});
 		remainingValuesSize = 1;
-		
+
 		% for each remaining value
 		for j = 1 : length(values)
 			% if the values of the attribute are the same,
@@ -104,22 +102,22 @@ function [remainder] = remainder(attributeSet)
 				remainingValuesSize = remainingValuesSize + 1;
 			end
 		end
-		
+
 		% counts the number of positive and negative for this example
 		noPos = countPositive(curValue);
 		noNeg = countNegative(curValue);
-		
+
 		% does calc: ((pi+ni)/(p+n)) * idThree(pi, ni)
 		val = iDThree(noPos, noNeg);
 		val = val * ((noPos + noNeg)/(overallPos + overallNeg));
-		
+
 		% removes all the visited elements of values
 		values = remainingValues;
-		
+
 		% performs sumation
 		sum = sum + val;
     end
-	
+
 	remainder = sum;
 
 end
@@ -138,22 +136,6 @@ end
 function [no] = countRes(arrayExamples, valToCompare)
 	% given a result value to compare to
 	% this functions counts everything in the array with value == valToComplare
-	no = 0;
-	for i = 1 : length(arrayExamples)
-		example = arrayExamples(i);
-		result = example.result(1);
-		if result == valToCompare
-			
-			no = no + 1;
-			
-		end
-	end
-end
-
-
-function [result] = tester()
-	attributes = { 'one' 'two' 'three'};
-	examples = { [0 1 1] [1 0 1] [1 1 1] [0 1 0]};
-	targets = {1 0 1 1};
-	result = choosebestdecisionattribute(attributes, examples, targets);
+    results = [arrayExamples.result]';
+    no = length(results(results == valToCompare));
 end
