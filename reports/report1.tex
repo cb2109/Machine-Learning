@@ -49,8 +49,18 @@
     1 and 6. Explain how you made sure this is always the case in your decision
     tree algorithm.
 
+
+
   \item Have you encountered any ambiguity when attempting to classify a given
     sample, if yes, what strategies did you use to deal with this?
+
+    When combining the lists of results back in to one list, there was potential
+    for ambiguity, as a result could be classified as more than one emotion. If
+    this happened we simply picked at random, in uniform fashion. If none of the
+    trees classified the data into an emotion, we chose anger.
+
+    TODO: THIS WAS BECAUSE SOMETHING ABOUT F1 MATRICES BEING CONFUSED
+
 
   \item Average cross validation classification results, that include:
     \begin{itemize}
@@ -73,37 +83,36 @@
           Emotion & TP & TN & FP & FN & Precision & Recall & $F_1$ \\
           \hline
           Anger & 10 & 83 & 5 & 2 & 0.833 & 0.667 & 0.741 \\
-          Disgust & 21 & 78 & 0 & 1 & 0.955 & 1.000 & 0.977 \\
-          Fear & 5 & 92 & 1 & 2 & 0.714 & 0.833 & 0.769 \\
-          Happiness & 24 & 76 & 0 & 0 & 1.000 & 1.000 & 1.000 \\
-          Sadness & 10 & 87 & 1 & 2 & 0.833 & 0.909 & 0.870 \\
-          Surprise & 23 & 77 & 0 & 0 & 1.000 & 1.000 & 1.000 \\
+        Disgust & 21 & 78 & 0 & 1 & 0.955 & 1.000 & 0.977 \\
+           Fear & 5 & 92 & 1 & 2 & 0.714 & 0.833 & 0.769 \\
+      Happiness & 24 & 76 & 0 & 0 & 1.000 & 1.000 & 1.000 \\
+        Sadness & 10 & 87 & 1 & 2 & 0.833 & 0.909 & 0.870 \\
+       Surprise & 23 & 77 & 0 & 0 & 1.000 & 1.000 & 1.000 \\
         \end{tabular}
-      \end{itemize}
+    \end{itemize}
 
-    \item \emph{Pruning is an important issue in trees. Run the prune\_example
-        function, which is provided, and briefly explain how it works. It uses the
-        MATLAB built-in functions for trees. Two figures should be generated showing
-        two different curves. Include those figures in your report and explain why
-        each curve has this shape. What is the difference between them?}
+  \item \emph{Pruning is an important issue in trees. Run the prune\_example
+      function, which is provided, and briefly explain how it works. It uses the
+      MATLAB built-in functions for trees. Two figures should be generated showing
+      two different curves. Include those figures in your report and explain why
+    each curve has this shape. What is the difference between them?}
 
-      The prune\_example function takes a set of AUs and the labels for that data,
-      and builds a decision tree using MATLAB's built in functionality to build a
-      decision tree from the data.
+    The prune\_example function takes a set of AUs and the labels for that data,
+    and builds a decision tree using MATLAB's built in functionality to build a
+    decision tree from the data.
 
-      Two graphs are produced: one from 10-cross fold-validation and one from
-      resubtitution. The two graphs have equal roughly equal values for the first
-      three data points. However, the 10-cross fold-validation graph has higher
-      values for the next nine results than the resubtitution graph does.
-      From the MATLAB documentation, the resubtitution method tends to underestimate
-      the cost because it tests using the same data that the tree learned with.
+    Two graphs are produced: one from 10-cross fold-validation and one from
+    resubtitution. The two graphs have equal roughly equal values for the first
+    three data points. However, the 10-cross fold-validation graph has higher
+    values for the next nine results than the resubtitution graph does.
+    From the MATLAB documentation, the resubtitution method tends to underestimate
+    the cost because it tests using the same data that the tree learned with.
 
-      This makes sense as the tree is, in part, over-trained, and so will be likely to
-      underestimate the cost of new data.
+    This makes sense as the tree is, in part, over-trained, and so will be likely to
+    underestimate the cost of new data.
 
 
-  \end{itemize}
+\end{itemize}
 
-  \end{document}
-
+\end{document}
 
