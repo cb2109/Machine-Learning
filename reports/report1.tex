@@ -1,0 +1,44 @@
+\documentclass[a4paper]{article}
+\usepackage{fullpage, titling, amsmath, footnote, listings}
+\makesavenoteenv{tabular}
+\setlength{\droptitle}{-50pt}
+
+\title{Machine Learning Assignment 2: Decision Trees}
+\author{Chris Bates, Joe Slade, Andrew West, Thomas Wood}
+
+\begin{document}
+\maketitle
+
+\begin{itemize}
+  \item The acquired decision trees, trained on the whole available dataset (6
+    in total, for 6 different emotions)
+
+    % TODO: Put trees in here/an appendix
+
+  \item Each example needs to get only a single emotion assigned to it, between
+    1 and 6. Explain how you made sure this is always the case in your decision
+    tree algorithm.
+
+  \item Have you encountered any ambiguity when attempting to classify a given
+    sample, if yes, what strategies did you use to deal with this?
+
+  \item Average cross validation classification results, that include:
+    \begin{itemize}
+      \item Confusion matrix
+      \item Average recall and precision rates per class
+      \item The $F_1$-measure derived from the recall and precision rates of the
+        previous step.
+    \end{itemize}
+    This implies that students will have to write a small script that splits the
+    given dataset into training and test sets.
+
+  \item Pruning is an important issue in trees. Run the \emph{pruning\_example}
+    function, which is provided, and briefly explain how it works. It uses the
+    MATLAB built-in functions for trees. Two figures should be generated showing
+    two different curves. Include those figures in your report and explain why
+    each curve has this shape. What is the difference between them?
+\end{itemize}
+
+\end{document}
+
+
