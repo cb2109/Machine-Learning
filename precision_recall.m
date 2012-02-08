@@ -44,8 +44,8 @@ for i = 1:6
    y(i,2) = tn;
    y(i,3) = fp;
    y(i,4) = fn;
-   y(i,5) = recall;
-   y(i,6) = precision;
+   y(i,5) = precision;
+   y(i,6) = recall;
    y(i,7) = f1;
    
 end
