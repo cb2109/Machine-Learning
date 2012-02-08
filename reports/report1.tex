@@ -49,8 +49,18 @@
     1 and 6. Explain how you made sure this is always the case in your decision
     tree algorithm.
 
+
+
   \item Have you encountered any ambiguity when attempting to classify a given
     sample, if yes, what strategies did you use to deal with this?
+
+    When combining the lists of results back in to one list, there was potential
+    for ambiguity, as a result could be classified as more than one emotion. If
+    this happened we simply picked at random, in uniform fashion. If none of the
+    trees classified the data into an emotion, we chose anger.
+
+    TODO: THIS WAS BECAUSE SOMETHING ABOUT F1 MATRICES BEING CONFUSED
+
 
   \item Average cross validation classification results, that include:
     \begin{itemize}
@@ -59,7 +69,7 @@
       \item The $F_1$-measure derived from the recall and precision rates of the
         previous step.
     \end{itemize}
-    
+
   \item \emph{Pruning is an important issue in trees. Run the prune\_example
     function, which is provided, and briefly explain how it works. It uses the
     MATLAB built-in functions for trees. Two figures should be generated showing
@@ -68,14 +78,14 @@
 
     The prune\_example function takes a set of AUs and the labels for that data,
     and builds a decision tree using MATLAB's built in functionality to build a
-    decision tree from the data. 
+    decision tree from the data.
 
-    Two graphs are produced: one from 10-cross fold-validation and one from 
-    resubtitution. The two graphs have equal roughly equal values for the first 
+    Two graphs are produced: one from 10-cross fold-validation and one from
+    resubtitution. The two graphs have equal roughly equal values for the first
     three data points. However, the 10-cross fold-validation graph has higher
-    values for the next nine results than the resubtitution graph does. 
+    values for the next nine results than the resubtitution graph does.
     From the MATLAB documentation, the resubtitution method tends to underestimate
-    the cost because it tests using the same data that the tree learned with. 
+    the cost because it tests using the same data that the tree learned with.
 
     This makes sense as the tree is, in part, over-trained, and so will be likely to
     underestimate the cost of new data.
