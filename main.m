@@ -18,10 +18,12 @@ function [ results ]  = main ()
         train_num = 1;
         for j = 1:size(examples,1)
             if ((j >= current_num) && (j < end_fold))
+                % Add this example to the test set
                 test_set(test_num,:) = examples(j,:);
                 test_targets(test_num) = targets(j);
                 test_num = test_num + 1;
             else
+                % Add the example to the training set
                 train_set(train_num,:) = examples(j,:);
                 train_targets(train_num) = targets(j);
                 train_num = train_num + 1;
@@ -30,7 +32,9 @@ function [ results ]  = main ()
         % Create and evaluate trees for each emotion
         trees  = cell(6,1);
         for j = 1:6
+            % Remap the target matrix into a list of 0s and 1s 
             emo_targets = remap_labels(emolab2str(j),train_targets);
+            % Use the algorithm from the spec to create a tree
             trees{j} = decision_tree_learning(train_set,1:45,emo_targets);
         end
         % Combine the results and add them to the list
@@ -38,5 +42,6 @@ function [ results ]  = main ()
         results(current_num:(end_fold - 1)) = fold_res;
         current_num = end_fold;
     end
+    % Check the results and print them to screen
     evaluate_results(results,targets);
 end

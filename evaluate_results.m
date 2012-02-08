@@ -8,7 +8,7 @@ function [ x,y ] = evaluate_results( results,targets )
 %     y: precision/recall table
 
 [x,u] = confusion_matrix(results,targets);
-y = precision_recall(x);
+y = precision_recall(x,targets);
 disp(' ')
 disp('                  Confusion Matrix')
 display_confusion_matrix(x)

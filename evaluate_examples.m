@@ -9,6 +9,7 @@ function [ results ] = evaluate_examples ( examples,tree )
 
 results = zeros(size(examples,1),1);
 for i = 1:size(examples)
+   % Retrieve the next example
    example = examples(i,:);
    current_node = tree;
    classified = 0;
@@ -18,6 +19,7 @@ for i = 1:size(examples)
           classified = 1;
           results(i) = current_node.class;
       else
+          % Parent node
           if (example(current_node.op) == 1)
              current_node = current_node.kids{1};
           else
