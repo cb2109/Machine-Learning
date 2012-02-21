@@ -12,7 +12,7 @@ y = zeros(6);
 i = 1;
 u = 0;
 while (i <= length(results))
-    if (~(results(i) == 7))
+    if ((results(i) > 0) && (results(i) < 7))
         y(targets(i),results(i)) = y(targets(i),results(i)) + 1;
     else
         u = u + 1;

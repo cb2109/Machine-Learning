@@ -17,5 +17,9 @@ disp('Unknown: ')
 disp(u)
 disp('                  Precision/Recall Table')
 display_precision_recall(y)
+disp(' ')
+avg = sum(y(:,7))/6;
+disp('Average F1:')
+disp(avg)
 end
 

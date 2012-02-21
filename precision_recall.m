@@ -21,11 +21,7 @@ for i = 1:6
    fp = fp - tp;
    
    % False Negatives:
-   fn = 0;
-   for j = 1:6
-      fn = fn + confusion(i,j); 
-   end
-   fn = fn - tp;
+   fn = count(i,targets) - tp;
    
    % True Negatives
    tn = number - fp - fn - tp;
@@ -35,9 +31,15 @@ for i = 1:6
   
    % Precision:
    precision = tp / (tp + fp);
+   if isnan(precision)
+       precision = 0;
+   end
    
    % F1:
    f1 = f_alpha(1,recall,precision);
+   if isnan(f1)
+       f1 = 0;
+   end
    
    % Fill in the table
    y(i,1) = tp;

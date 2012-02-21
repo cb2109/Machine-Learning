@@ -8,6 +8,6 @@ function [ y ] = f_alpha( alpha,recall,precision )
 %     precision: the precision value
 %OUT: y: the F alpha measure
 
-y = (1 + alpha) * ((precision * recall)/(alpha * (precision + recall)));
+y = (1 + alpha) * ((precision * recall)/((alpha * precision) + recall));
 end
 

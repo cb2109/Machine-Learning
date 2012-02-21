@@ -9,7 +9,7 @@ function [ y ] = unmap_labels( emotion, labels )
 y = zeros(size(labels));
 emo_val = str2emolab(emotion(1:4));
 for i = 1:size(y)
-    if labels(i) == 1
+    if labels(i) >= 0.5
         y(i) = emo_val;
     end
 end
