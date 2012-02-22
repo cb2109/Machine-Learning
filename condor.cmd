@@ -1,13 +1,14 @@
 universe        = vanilla
-executable      = /usr/bin/matlab
+executable      = matlab_launcher
 
-error           = condor/$(Process)
+output          = condor/$(Process).out
+error           = condor/$(Process).err
 log             = condor.log
 
-arguments       = -nojvm -nodisplay -r \"ANN_condor($(topology) , $(lr) , $(transf) , $(trainf) , $(Process)); exit;\"
+arguments       = $(topology) $(lr) $(transf) $(trainf) $(Process)
 
 lr = 0.01
-transf = 'transig'
+transf = 'tansig'
 trainf = 'trainlm'
 
 topology = [$(layer1)]
