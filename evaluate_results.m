@@ -1,4 +1,4 @@
-function [ x,y ] = evaluate_results( results,targets )
+function [ x,y,avgf1 ] = evaluate_results( results,targets )
 %
 %EVALUATE_RESULTS - evaluates a set of results against a set of target values
 %
@@ -18,8 +18,8 @@ disp(u)
 disp('                  Precision/Recall Table')
 display_precision_recall(y)
 disp(' ')
-avg = sum(y(:,7))/6;
+avgf1 = sum(y(:,7))/6;
 disp('Average F1:')
-disp(avg)
+disp(avgf1)
 end
 
