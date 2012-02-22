@@ -1,10 +1,11 @@
-function [ examples, emo_targets ] = ANN_main( )
+function [ examples ] = ANN_main( )
 %ANN_MAIN - Creates and tests a set of ANNs, then analyses and returns 
 %           their results
 
     % Loads and transforms the examples from cleandata_students.txt
 	[ex, tg]  = loaddata('cleandata_students.txt');
     [examples, targets] = ANNdata(ex,tg);
+    single_results = zeros(size(tg));
     results = zeros(size(tg));
     
     % **********************
@@ -23,8 +24,20 @@ function [ examples, emo_targets ] = ANN_main( )
     epochs = 100;
     
     % Do 10 fold cross evaluation...
-    folds = 2;
+    folds = 10;
     indices = crossvalind('Kfold',size(tg,1),folds);
+
+    single_net = feedforwardnet([10,6],'trainlm');
+    %single_net.divideFcn = 'dividetrain';
+    single_net.divideFcn = 'dividerand';
+    single_net.divideParam.trainRatio = 0.8;
+    single_net.divideParam.testRatio = 0.0;
+    single_net.divideParam.valRatio = 0.2;
+    single_net.trainParam.epochs = 100;
+    single_net.layers{1}.transferFcn = 'purelin';
+    single_net.layers{2}.transferFcn = 'purelin';
+    single_net.trainParam.goal = 0;
+    single_net.trainParam.showWindow = 0;
 
     num_per_fold = floor(size(ex,1) / folds);
     train_set_size = size(ex,1) - num_per_fold;
@@ -32,6 +45,7 @@ function [ examples, emo_targets ] = ANN_main( )
     train_set = zeros(size(examples,1),train_set_size);
     train_targets = zeros(size(targets,1),train_set_size);
     test_targets = zeros(num_per_fold,1);
+    output_targets = zeros(size(tg));
     current_num = 1;
 
     for i = 1:folds
@@ -51,6 +65,15 @@ function [ examples, emo_targets ] = ANN_main( )
                 train_num = train_num + 1;
             end
         end
+        
+        % Generate the single six output ANN
+        
+        single_net = configure(single_net,train_set,train_targets);
+        single_net = train(single_net,train_set,train_targets);
+        single_res = sim(single_net,test_set);
+
+        % Uncomment to show results for each fold
+        %evaluate_results(six_output_combine(single_res),test_targets);
         
         % Generate the six single output ANNs
         
@@ -101,12 +124,18 @@ function [ examples, emo_targets ] = ANN_main( )
         % Combine the results and add them to the list
         fold_res = combine_results(anger_res',disg_res',fear_res', ...
             happy_res',sad_res',surp_res');
-        tg(current_num:(end_fold - 1)) = test_targets;
-        results(current_num:(end_fold - 1)) = fold_res;
+        output_targets(current_num:(end_fold - 1)) = test_targets;
+        single_results(current_num:(end_fold - 1)) = ...
+            six_output_combine(single_res);
+      results(current_num:(end_fold - 1)) = fold_res;
         current_num = end_fold;
         
     end
     
-    [x,y,avgf1] = evaluate_results(results,tg);
+    disp('Six Output Tree Results:')
+    evaluate_results(single_results,output_targets);
+    disp(' ')
+    disp('Single Output Tree Results:')
+    [x,y,avgf1] = evaluate_results(results,output_targets);
 
 end
