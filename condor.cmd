@@ -7,6 +7,8 @@ log             = condor.log
 
 arguments       = $(topology) $(lr) $(transf) $(trainf) $(Process)
 
+Requirements    = stringListMember("LAB", DoC_Host_Classes)
+
 lr = 0.01
 transf = 'tansig'
 trainf = 'trainlm'

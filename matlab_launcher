@@ -1,0 +1,2 @@
+#!/bin/sh
+/usr/bin/matlab -nojvm -nodisplay -r "ANN_condor( $1 , $2 , $3 , $4 , $5 )"
