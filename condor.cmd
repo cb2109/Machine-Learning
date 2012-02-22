@@ -1,17 +1,16 @@
 universe        = vanilla
-executable      = /usr/bin/prolog
+executable      = /usr/bin/matlab
 
-output          = $(Process).out
-error           = $(Process).err
+error           = condor/$(Process)
 log             = condor.log
 
-arguments       = -nojvm -nodisplay -r "ANN_condor($(topology) , $(lr) , $(transf) , $)trainf) , $(Process)); exit;"
+arguments       = -nojvm -nodisplay -r \"ANN_condor($(topology) , $(lr) , $(transf) , $(trainf) , $(Process)); exit;\"
 
 lr = 0.01
 transf = 'transig'
 trainf = 'trainlm'
 
-topology = "[$(layer1)]"
+topology = [$(layer1)]
 layer1 = 1
 Queue 5
 layer1 = 2
@@ -45,7 +44,7 @@ Queue 5
 layer1 = 100
 Queue 5
 
-topology = "[$(layer1),$(layer2)]"
+topology = [$(layer1),$(layer2)]
 layer1 = 1
 layer2 = 1
 Queue 5
