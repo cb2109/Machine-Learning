@@ -1,4 +1,4 @@
-function [ examples, emo_targets ] = ANN_main( )
+function [ avgf1 ] = ANN_main( topology, learning_rate, trans_func, train_func )
 %ANN_MAIN - Creates and tests a set of ANNs, then analyses and returns 
 %           their results
 
@@ -11,19 +11,19 @@ function [ examples, emo_targets ] = ANN_main( )
     % * Network Parameters *
     % **********************
     % Number of hidden layers/Neurons per hidden layer
-    topology = [10,2];
+    %topology = [10,2];
     % Learning rate (not used with all training functions)
-    learning_rate = 0.01;
+    %learning_rate = 0.01;
     % Transfer functions: hardlim (perceptron), purelin (linear unit)
     % and tansig (sigmoid)
-    trans_func = 'tansig';
+    %trans_func = 'tansig';
     % Training function: (eg. trainlm, trainscg etc.)
-    train_func = 'trainlm';
+    %train_func = 'trainlm';
     % Epochs
     epochs = 100;
     
     % Do 10 fold cross evaluation...
-    folds = 2;
+    folds = 10;
     indices = crossvalind('Kfold',size(tg,1),folds);
 
     num_per_fold = floor(size(ex,1) / folds);
@@ -56,9 +56,9 @@ function [ examples, emo_targets ] = ANN_main( )
         
         net = feedforwardnet(topology,train_func);
         net.divideFcn = 'dividetrain';
-        net.trainParam.epochs = 100;
-        net.layers{1}.transferFcn = 'tansig';
-        net.layers{2}.transferFcn = 'tansig';
+        net.trainParam.epochs = epochs;
+        net.layers{1}.transferFcn = trans_func;
+        net.layers{2}.transferFcn = trans_func;
         net.trainParam.goal = 0;
         net.trainParam.showWindow = 0;
         
