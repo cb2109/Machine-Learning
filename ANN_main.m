@@ -23,7 +23,7 @@ function [ examples, emo_targets ] = ANN_main( )
     epochs = 100;
     
     % Do 10 fold cross evaluation...
-    folds = 10;
+    folds = 2;
     indices = crossvalind('Kfold',size(tg,1),folds);
 
     num_per_fold = floor(size(ex,1) / folds);
@@ -107,6 +107,6 @@ function [ examples, emo_targets ] = ANN_main( )
         
     end
     
-    evaluate_results(results,tg);
+    [x,y,avgf1] = evaluate_results(results,tg);
 
 end
