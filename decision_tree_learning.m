@@ -22,6 +22,8 @@ elseif (size(attributes) == 0)
 end
 
 best = choosebestdecisionattribute(attributes, examples, targets);
+attributes = setdiff(attributes, best);
+
 zeroIndices = find(~examples(:,best));
 oneIndices  = find( examples(:,best));
 neg_examples = examples(zeroIndices,:);
