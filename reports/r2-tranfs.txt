@@ -1,0 +1,14 @@
+compet  
+hardlim 
+hardlims
+logsig  
+netinv  
+poslin  
+purelin 
+radbas  
+radbasn 
+satlin  
+satlins 
+softmax 
+tansig  
+tribas  
