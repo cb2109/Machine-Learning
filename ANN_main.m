@@ -133,7 +133,7 @@ function [ avgf1, avgf6 ] = ANN_main( topology, learning_rate, trans_func, train
     end
     
     disp('Six Output Tree Results:')
-    evaluate_results(single_results,output_targets);
+    [x,y,avgf6] = evaluate_results(single_results,output_targets);
     disp(' ')
     disp('Single Output Tree Results:')
     [x,y,avgf1] = evaluate_results(results,output_targets);
