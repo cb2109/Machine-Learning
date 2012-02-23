@@ -28,13 +28,20 @@ for i = 1:6
    
    % Recall:
    recall = tp / (tp + fn);
-  
+   if isnan(recall)
+       recall = 0;
+   end
+   
    % Precision:
    precision = tp / (tp + fp);
    if isnan(precision)
        precision = 0;
    end
    
+   if (tp + fp + fn) == 0
+        precision = 1.0;
+        recall = 1.0;
+   end
    % F1:
    f1 = f_alpha(1,recall,precision);
    if isnan(f1)
