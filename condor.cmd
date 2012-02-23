@@ -4,6 +4,7 @@ executable      = matlab_launcher
 output          = condor/$(Process).out
 error           = condor/$(Process).err
 log             = condor.log
+notification    = Never
 
 arguments       = $(topology) $(lr) $(transf) $(trainf) $(Process)
 
