@@ -1,0 +1,59 @@
+\documentclass[a4paper]{article}
+\usepackage{fullpage, titling, amsmath, footnote, listings, graphicx, subfig}
+\makesavenoteenv{tabular}
+\setlength{\droptitle}{-50pt}
+
+\title{Machine Learning Assignment 3: Artificial Neural Networks}
+\author{Group 31 \\ Chris Bates, Joe Slade, Andrew West, Thomas Wood}
+
+\begin{document}
+\maketitle
+\section{Network Parameters}
+
+%  What criteria have you used to choose optimal topology/parameters of
+%  the networks? Compare the optimal parameters of both types of the networks
+%  (the single six-output network and six single-outputs networks). Explain what
+%  strategy you employed to ensure good generalisation ability of the networks
+%  and overcome the problem of overfitting, if encountered (support this by
+%  experimental results).
+
+We brute forced two of the paramters using Condor, and found they had minimal effect on the output
+of the neural networks. 
+
+Somebody played around with the other parameters, and
+%BULLSHIT HERE
+we graphed the results of varying paramter X and saw what was best.
+
+In order to overcome overfitting, we sacrificed two rams to the dark god of MATLAB.
+
+
+%  perform 10-fold cross-validation for both types of networks. Cross-validation
+%  should be performed in the same way as in Assignment 2 (with a script that
+%  splits the given dataset into training and test sets). 10-fold cross-validation
+%  should be performed using the optimal topology and best parameters obtained
+%  in 2(a), i.e., for six-output and single-output NNs. Note that in the case of 6
+%  networks, each example must be classified as one of the 6 emotions. Plot the
+%  performance (only F1 measure) per fold of each network type in the same
+%  figure.
+
+
+
+
+%  Report also the average results of the 10-fold cross-validation (similarly to the
+%  trees) for both types of networks (single six-output NN and six single-outputs
+%  NNs):
+%     confusion matrices,
+%     recall and precision rates per class,
+%       (Hint: you can derive them directly from the previously computed  confusion matrix)
+%     the F1-measure derived from the recall and precision rates of the previous step.
+
+
+
+%  Is there any difference in the classification performance of the two different
+%  classification approaches. Discuss the advantages / disadvantages of using 6
+%  single-output NNs vs. 1 six-output NNs.
+
+Single output NNs well train better to one emotion, but a six-output NN will probably be 
+less likely to get overtrained.
+
+\end{document}
