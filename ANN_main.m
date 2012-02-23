@@ -38,6 +38,7 @@ function [ avgf1, avgf6 ] = ANN_main( topology, learning_rate, trans_func, train
     single_net.layers{2}.transferFcn = trans_func;
     single_net.trainParam.goal = 0;
     single_net.trainParam.showWindow = 0;
+    single_net.trainParam.showGUI = 0;
 
     num_per_fold = floor(size(ex,1) / folds);
     train_set_size = size(ex,1) - num_per_fold;
@@ -84,6 +85,7 @@ function [ avgf1, avgf6 ] = ANN_main( topology, learning_rate, trans_func, train
         net.layers{2}.transferFcn = trans_func;
         net.trainParam.goal = 0;
         net.trainParam.showWindow = 0;
+        net.trainParam.showGUI = 0;
         
         % Anger
         emo_targets = train_targets(1,:);
@@ -137,5 +139,4 @@ function [ avgf1, avgf6 ] = ANN_main( topology, learning_rate, trans_func, train
     disp(' ')
     disp('Single Output Tree Results:')
     [x,y,avgf1] = evaluate_results(results,output_targets);
-
 end
