@@ -1,4 +1,4 @@
-function [mz,mq] = ANN_condor_aggregate
+function [c] = ANN_condor_aggregate
     files = strtrim(regexp(ls('condor/*.mat'), '\s+', 'split'));
     num = size(files, 2);
     
@@ -12,19 +12,20 @@ function [mz,mq] = ANN_condor_aggregate
         end
     end
     
-    
+    %{
     topology = reshape([rows.topology], [], 2);
     x=topology(:,1);
     y=topology(:,2);
+    %}
     
-    c=char(rows.trans_func);
+    c=char(rows.train_func);
     cx=idx(c);
     z=[rows.avgf1]';
     q=[rows.avgf6]';
     
-    scatter(cx,z);
+    scatter(cx,z,'o');
     hold on;
-    scatter(cx,q);
+    scatter(cx,q,'x');
     
     %{
     mz = average(x,y,z);
