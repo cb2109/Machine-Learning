@@ -41,6 +41,7 @@ function [ avgf1, avgf6 ] = ANN_main( topology, learning_rate, trans_func, train
     single_net.layers{2}.transferFcn = 'purelin';
     single_net.trainParam.goal = 0;
     single_net.trainParam.showWindow = 0;
+    single_net.trainParam.showGUI = 0;
     
     net = feedforwardnet(topology,train_func);
     net.divideFcn = 'dividetrain';
@@ -88,6 +89,7 @@ function [ avgf1, avgf6 ] = ANN_main( topology, learning_rate, trans_func, train
         
         % Generate the six single output ANNs
         
+
 %         % Anger
 %         emo_targets = train_targets(1,:);
 %         net = configure(net,train_set,emo_targets);
