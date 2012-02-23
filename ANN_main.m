@@ -1,4 +1,4 @@
-function [ examples ] = ANN_main( )
+function [ avgf1, avgf6 ] = ANN_main( topology, learning_rate, trans_func, train_func )
 %ANN_MAIN - Creates and tests a set of ANNs, then analyses and returns 
 %           their results
 
@@ -12,14 +12,14 @@ function [ examples ] = ANN_main( )
     % * Network Parameters *
     % **********************
     % Number of hidden layers/Neurons per hidden layer
-    topology = [10,2];
+    %topology = [10,2];
     % Learning rate (not used with all training functions)
-    learning_rate = 0.01;
+    %learning_rate = 0.01;
     % Transfer functions: hardlim (perceptron), purelin (linear unit)
     % and tansig (sigmoid)
-    trans_func = 'tansig';
+    %trans_func = 'tansig';
     % Training function: (eg. trainlm, trainscg etc.)
-    train_func = 'trainlm';
+    %train_func = 'trainlm';
     % Epochs
     epochs = 100;
     
@@ -28,7 +28,7 @@ function [ examples ] = ANN_main( )
     indices = crossvalind('Kfold',size(tg,1),folds);
 
     % trainlm > traingdr > trainscg
-    single_net = feedforwardnet([10,5],'traingda');
+    single_net = feedforwardnet([10,5],'trainlm');
     %single_net.divideFcn = 'dividetrain';
     single_net.divideFcn = 'dividerand';
     single_net.divideParam.trainRatio = 0.8;
@@ -136,7 +136,7 @@ function [ examples ] = ANN_main( )
     end
     
     disp('Six Output Tree Results:')
-    evaluate_results(single_results,output_targets);
+    [x,y,avgf6] = evaluate_results(single_results,output_targets);
     disp(' ')
 %     disp('Single Output Tree Results:')
 %     [x,y,avgf1] = evaluate_results(results,output_targets);

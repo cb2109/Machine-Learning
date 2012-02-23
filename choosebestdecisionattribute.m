@@ -17,14 +17,7 @@ function [best] = choosebestdecisionattribute(attributes, examples, targets)
 	for i = 1 : length(attributes)
 
 		curAttribute = attributes(i);
-		values = struct('value', {}, 'result', {});
-
-        for j = 1 : size(examples, 1)
-            curValue.value = examples(j, i);
-			curValue.result = targets(j);
-			values(j) = curValue;
-		end
-
+        values = [examples(:, curAttribute), targets];
 		val = gain(values);
 
 		if val >= bestValue
@@ -37,8 +30,8 @@ end
 function [gain] = gain (attributeSet)
 	% performs the caluation for gain given in the notes
 	% attributeSet: is an array s.t. attributeSet[i].value = Real, attributeSet[i].result = {0, 1}
-	noPos = countPositive(attributeSet);
-	noNeg = countNegative(attributeSet);
+	noPos = countRes(attributeSet(:, 2), 1);
+	noNeg = countRes(attributeSet(:, 2), 0);
 
 	% gain = id3(positive, negaive) - Remainder(attributeSet)
 	gain = iDThree(noPos, noNeg) - remainder(attributeSet);
@@ -65,77 +58,27 @@ function [remainder] = remainder(attributeSet)
 	% attribute subset: an array of attributes combined with results
 	% attr v1       v2      v3
 	%       result  result  result
-	%
-	% where attr is an array of pairs: attr[0].value, attr[1].result
 
-	values = attributeSet;
+	values = attributeSet(:, 1);
+    results = attributeSet(:, 2);
 
-	overallPos = countPositive(attributeSet);
-	overallNeg = countNegative(attributeSet);
+    options = unique(values);
 
-	sum = 0.0;
+    count = size(values, 1);
+    remainder = 0;
 
-	% while there are still values to be handled
-	% this loop repeatedly goes through values collecting
-	% all the attributes with the same value and performing
-	% the calculation in the notes on them
-	while ~isempty(values)
-		% initialize the current value with the first element of values
-		curValue = struct(values(1));
-		% removes element 1 from the list
-		values(1) = [];
-		curValueSize = 2;
+    for i = 1 : length(options)
+        indices = find(values == options(i));
+        positive = sum(results(indices));
+        negative = sum(~results(indices));
 
-		% place for storing values that weren't visited
-		remainingValues = struct('value', {}, 'result', {});
-		remainingValuesSize = 1;
-
-		% for each remaining value
-		for j = 1 : length(values)
-			% if the values of the attribute are the same,
-			% add it to the array and remove it from values
-			if isequal(curValue(1).value, values(j).value)
-				curValue(curValueSize) = values(j);
-				curValueSize = curValueSize + 1;
-			else
-				remainingValues(remainingValuesSize) = values(j);
-				remainingValuesSize = remainingValuesSize + 1;
-			end
-		end
-
-		% counts the number of positive and negative for this example
-		noPos = countPositive(curValue);
-		noNeg = countNegative(curValue);
-
-		% does calc: ((pi+ni)/(p+n)) * idThree(pi, ni)
-		val = iDThree(noPos, noNeg);
-		val = val * ((noPos + noNeg)/(overallPos + overallNeg));
-
-		% removes all the visited elements of values
-		values = remainingValues;
-
-		% performs sumation
-		sum = sum + val;
+        remainder = remainder ...
+        + ((positive + negative) / count) * iDThree(positive, negative);
     end
-
-	remainder = sum;
-
 end
 
-
-function [noPos] = countPositive(arrayExamples)
-	%counts all positive examples
-	noPos = countRes(arrayExamples, 1);
-end
-
-function [noNeg] = countNegative(arrayExamples)
-	%counts all negative examples
-	noNeg = countRes(arrayExamples, 0);
-end
-
-function [no] = countRes(arrayExamples, valToCompare)
+function [no] = countRes(results, valToCompare)
 	% given a result value to compare to
 	% this functions counts everything in the array with value == valToComplare
-    results = [arrayExamples.result]';
     no = length(results(results == valToCompare));
 end
