@@ -18,11 +18,11 @@
 %  experimental results).
 
 The first requirement of the task was to decide what constituted an `optimal' neural network. As the networks would eventually
-be compared based on their performances what subjected to 10-fold cross-validation, it was decided that we should attempt to 
+be compared based on their performances when subjected to 10-fold cross-validation, it was decided that we should attempt to 
 maximise the average $F_1$ value from between the six emotions. Thus, the `optimal' networks would be those that would cope
 best when tested on unseen data, in a similar way to the way success of the decision trees of the previous task were measured.\\
 
-Following feedback from the previous task, the function used to subivide the data set for 10-fold cross-validation was improved
+Following feedback from the previous task, the function used to subdivide the data set for 10-fold cross-validation was improved
 to group data into test and training sets randomly in order to make our results less dependent on the arrangement of the underlying data.
 Thus, a secondary concern when searching for the optimal solution was that the networks be trainable in a reasonable amount of time.
 This ensured that it was possible to collect large amounts of test data for each variation of each network parameter in the
@@ -30,7 +30,7 @@ limited time available, which could then be used to counteract the effects of ra
 were statistically significant and supported by our data.\\
 
 The actual optimisation of the parameters was effectively done by brute force. By using Condor to perform large numbers of computations
-beyod the scope of what would have been achievable using individual machines, it was possible to test large numbers of different values
+beyond the scope of what would have been achievable using individual machines, it was possible to test large numbers of different values
 for each parameter. These experiments were also repeated many times to ensure their accuracy. In each experiment, one parameter was varied
 while the others remained fixed. This allowed us to see that impact each had on the performance of the resulting neural networks. In ideal
 circumstances, one extremely large experiment in which every permutation of possible parameter combinations would have instead been run,
