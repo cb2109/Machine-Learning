@@ -17,9 +17,9 @@
 %  and overcome the problem of overfitting, if encountered (support this by
 %  experimental results).
 
-The first requirement of the task was to decide what constituted an 'optimal' neural network. As the networks would eventually
+The first requirement of the task was to decide what constituted an `optimal' neural network. As the networks would eventually
 be compared based on their performances what subjected to 10-fold cross-validation, it was decided that we should attempt to 
-maximise the average $F_1$ value from between the six emotions. Thus, the 'optimal' networks would be those that would cope
+maximise the average $F_1$ value from between the six emotions. Thus, the `optimal' networks would be those that would cope
 best when tested on unseen data, in a similar way to the way success of the decision trees of the previous task were measured.\\
 
 Following feedback from the previous task, the function used to subivide the data set for 10-fold cross-validation was improved
@@ -62,19 +62,19 @@ function for both types of network is pure linear (purelin).\\
 Finally, the training functions and learning rates (where applicable) were tested. There are a large number of possible training functions
 provided in the Toolbox, and in order to reduce the number of tests which would need to be run it was decided that functions which took longer
 than the default 100 epochs to produce good results would be ignored. This had the additional benefit of ensuring all the test were quick to run,
-which was one of the original 'optimum' requirements. 17 functions were tested, some of which used learning rates and some of which did not, and
+which was one of the original `optimum' requirements. 17 functions were tested, some of which used learning rates and some of which did not, and
 the results were again plotted in a similar manner to the previous two experiments in figure 4. For this initial test, learning rates were kept
 constant for those functions which used them to make comparison easier. It can be seen from the graph that many of the more complex functions
 did not perform as expected, with most failing to outperform the default function (trainlm). However, one function can be clearly identified
-as the best from this test - the 'trainbfg' function. Once this benchmark was established, all function which required learning rates were then
+as the best from this test - the `trainbfg' function. Once this benchmark was established, all function which required learning rates were then
 tested separately using various lr values, and the results of these were then compared with the results yielded by the trainbfg function.
 It was found that none of these could be made to perform as well as trainbfg for any tested learning rate, and trainbfg was therefore selected
-as the optimim function.\\ 
+as the optimum function.\\ 
 
 Two precautions were taken to ensure that all results obtained were correct and did not represent overfitted networks. Firstly, all networks were
 optimised using 10-fold cross-validation and not on the full data set, meaning that networks which were overtrained would perform badly when tested
 and would therefore be discarded. Secondly, the Matlab Neural Network toolbox provides a method to check for overfitting while training networks and
-this was also used to check all generated networks would still function well when introduced to new data. Matlab neural networks have a 'divideFcn'
+this was also used to check all generated networks would still function well when introduced to new data. Matlab neural networks have a `divideFcn'
 parameter which can be used to divide all training data into training, validation and testing sets. As 10-fold cross-validation was already being
 used, it was not necessary for the divideFcn to create a testing set from the given data, but by assigning 20/% of all training examples to the
 validation set the Neural Network Toolbox could automatically detect and adjust for overfitting.\\ 
