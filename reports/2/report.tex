@@ -59,7 +59,7 @@ performing very poorly on both networks, perhaps due to the restricted nature of
 produced good results on both types of network, but it appears that linear functions are slightly better than sigmoid ones, and the best transfer
 function for both types of network is pure linear (purelin).\\
 
-Finally, the training functions and learning rates (where applicable) were tested.  
+Finally, the training functions and learning rates (where applicable) were tested.\\  
 
 Two precautions were taken to ensure that all results obtained were correct and did not represent overfitted networks. Firstly, all networks were
 optimised using 10-fold cross-validation and not on the full data set, meaning that networks which were overtrained would perform badly when tested
@@ -67,7 +67,7 @@ and would therefore be discarded. Secondly, the Matlab Neural Network toolbox pr
 this was also used to check all generated networks would still function well when introduced to new data. Matlab neural networks have a 'divideFcn'
 parameter which can be used to divide all training data into training, validation and testing sets. As 10-fold cross-validation was already being
 used, it was not necessary for the divideFcn to create a testing set from the given data, but by assigning 20/% of all training examples to the
-validation set the Neural Network Toolbox could automatically detect and adjust for overfitting. 
+validation set the Neural Network Toolbox could automatically detect and adjust for overfitting.\\ 
 
 %  perform 10-fold cross-validation for both types of networks. Cross-validation
 %  should be performed in the same way as in Assignment 2 (with a script that
@@ -100,20 +100,20 @@ less likely to get overtrained.
 
 \begin{figure}[p]
   \centering
-  {\includegraphics[height=100mm]{6-out-topology.png}}
+  {\includegraphics[height=90mm]{6-out-topology.png}}
   \caption{Isometric and top-down view of surface created by plotting neurons per layer \\ against average $F_1$ value for six-output tree}
 \end{figure}
 
 \begin{figure}[p]
   \centering
-  {\includegraphics[height=100mm]{1-out-topology.png}}
+  {\includegraphics[height=90mm]{1-out-topology.png}}
   \caption{Isometric and top-down view of surface created by plotting neurons per layer \\ against average $F_1$ value for single-output trees}
 \end{figure}
 
 \begin{landscape}
 \begin{figure}[p]
   \centering
-  {\includegraphics[height=140mm]{transfer-function.png}}
+  {\includegraphics[height=120mm]{transfer-function.png}}
   \caption{Results of varying transfer function used}
 \end{figure}
 \end{landscape}
